@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Eventful.Common.Entities;
 using System.Threading.Tasks;
+using System;
 
 namespace Eventful.DataAccess
 {
@@ -12,10 +13,12 @@ namespace Eventful.DataAccess
             return new List<Event>
             {
                 new Event{
-                    Name = "TestEvent1"
+                    Title = "TestEvent1",
+                    Date = DateTime.UtcNow
                 },
                 new Event{
-                    Name = "TestEvent2"
+                    Title = "TestEvent2",
+                    Date = DateTime.UtcNow
                 }
             };
         }

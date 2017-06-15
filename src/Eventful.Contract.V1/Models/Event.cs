@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Eventful.Common.Entities
+namespace Eventful.Contract.V1.Models
 {
     public class Event
     {

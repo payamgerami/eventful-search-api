@@ -9,6 +9,7 @@
     <Folder Include="wwwroot\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="6.1.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.1.3" />
@@ -25,6 +26,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Eventful.Common\Eventful.Common.csproj" />
+    <ProjectReference Include="..\Eventful.Contract.V1\Eventful.Contract.V1.csproj" />
     <ProjectReference Include="..\Eventful.DataAccess\Eventful.DataAccess.csproj" />
   </ItemGroup>
 

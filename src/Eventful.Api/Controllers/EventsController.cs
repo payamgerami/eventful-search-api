@@ -1,8 +1,9 @@
 using Eventful.DataAccess;
 using Microsoft.AspNetCore.Mvc;
-using Eventful.Common.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Eventful.Contract.V1.Requests;
+using Eventful.Contract.V1.Responses;
 
 namespace Eventful.Api.Controllers
 {
@@ -19,13 +20,12 @@ namespace Eventful.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Event>> Search()
+        public async Task<SearchEventsResponse> Search(SearchEventsRequest request)
         {
-            string address = "Test Addresss";
-            Location location = await _googleApiRepository.GetLocation(address);
-            List<Event> events = await _eventfulApiRepository.GetEvents(location);
+            var location = await _googleApiRepository.GetLocation(request.Address);
+            var events = await _eventfulApiRepository.GetEvents(location);
 
-            return events;
+            return new SearchEventsResponse(AutoMapper.Mapper.Map<List<Contract.V1.Models.Event>>(events));
         }
     }
 }

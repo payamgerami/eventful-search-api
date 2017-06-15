@@ -30,6 +30,12 @@ namespace Eventful.Api
             // Add repositories
             services.AddScoped<IGoogleApiRepository, GoogleApiRepository>();
             services.AddScoped<IEventfulApiRepository, EventfulApiRepository>();
+
+            // Setup convertors
+            AutoMapper.Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<Common.Entities.Event, Contract.V1.Models.Event>();
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
