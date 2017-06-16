@@ -5,16 +5,11 @@ namespace Eventful.Contract.V1.Responses
 {
     public class SearchEventsResponse
     {
-        public SearchEventsResponse()
-        {
-            Events = new List<Event>();
-        }
-
-        public SearchEventsResponse(List<Event> events)
+        public SearchEventsResponse(IEnumerable<Event> events)
         {
             Events = events;
         }
 
-        public List<Event> Events { get; set; }
+        public IEnumerable<Event> Events { get; set; }
     }
 }

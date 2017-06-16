@@ -25,9 +25,9 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Eventful.Common\Eventful.Common.csproj" />
     <ProjectReference Include="..\Eventful.Contract.V1\Eventful.Contract.V1.csproj" />
     <ProjectReference Include="..\Eventful.DataAccess\Eventful.DataAccess.csproj" />
+    <ProjectReference Include="..\Eventful.Logic\Eventful.Logic.csproj" />
   </ItemGroup>
 
 </Project>

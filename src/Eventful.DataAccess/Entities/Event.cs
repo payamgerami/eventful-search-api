@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Eventful.Common.Entities
+namespace Eventful.DataAccess.Entities
 {
     public class Event
     {

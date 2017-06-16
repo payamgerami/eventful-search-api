@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Eventful.Contract.V1.Requests
+namespace Eventful.Logic.Queries
 {
-    public class SearchEventsRequest
+    public class SearchQuery
     {
         public string Address { get; set; }
         public float Radius { get; set; }

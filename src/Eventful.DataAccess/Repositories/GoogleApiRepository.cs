@@ -1,7 +1,7 @@
-﻿using Eventful.Common.Entities;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Eventful.DataAccess.Entities;
 
-namespace Eventful.DataAccess
+namespace Eventful.DataAccess.Repositories
 {
     public class GoogleApiRepository : IGoogleApiRepository
     {

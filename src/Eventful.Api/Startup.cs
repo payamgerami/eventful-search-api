@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Eventful.DataAccess;
+using Eventful.DataAccess.Extensions;
+using Eventful.Logic.Extensions;
+using System.Net;
 
 namespace Eventful.Api
 {
@@ -24,17 +27,17 @@ namespace Eventful.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add Layers
+            services.AddEventfulLogicLayer();
+            services.AddEventfulDataAccessLayer();
+
+            // Setup mappings
+            Mappings.Mapping.ConfigureMap();
+
             // Add framework services.
-            services.AddMvc();
-
-            // Add repositories
-            services.AddScoped<IGoogleApiRepository, GoogleApiRepository>();
-            services.AddScoped<IEventfulApiRepository, EventfulApiRepository>();
-
-            // Setup convertors
-            AutoMapper.Mapper.Initialize(cfg =>
+            services.AddMvc(setupAction =>
             {
-                cfg.CreateMap<Common.Entities.Event, Contract.V1.Models.Event>();
+                setupAction.ReturnHttpNotAcceptable = true;
             });
         }
 
@@ -43,6 +46,15 @@ namespace Eventful.Api
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            app.UseExceptionHandler(
+                appBuilder => appBuilder.Run(
+                    async context =>
+                    {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        await context.Response.WriteAsync("An error has occurred on the server. Please try again later");
+                    })
+                );
 
             app.UseMvc();
         }

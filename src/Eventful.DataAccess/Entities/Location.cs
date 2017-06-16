@@ -1,4 +1,4 @@
-﻿namespace Eventful.Common.Entities
+﻿namespace Eventful.DataAccess.Entities
 {
     public class Location
     {

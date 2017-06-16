@@ -2,7 +2,7 @@
 
 namespace Eventful.Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/version")]
     public class VersionController
     {
         // GET api/version
