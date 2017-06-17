@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 using Eventful.DataAccess.Extensions;
 using Eventful.Logic.Extensions;
 using System.Net;
+using FluentValidation.AspNetCore;
 
 namespace Eventful.Api
 {
@@ -38,7 +39,12 @@ namespace Eventful.Api
             services.AddMvc(setupAction =>
             {
                 setupAction.ReturnHttpNotAcceptable = true;
-            });
+            })
+            //Add Validation
+            .AddFluentValidation(fv =>
+             {
+                 fv.RegisterValidatorsFromAssemblyContaining<Contract.V1.Validators.SearchEventsRequestValidator>();
+             });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
