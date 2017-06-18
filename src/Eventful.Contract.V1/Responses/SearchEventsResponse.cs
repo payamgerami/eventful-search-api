@@ -1,15 +1,14 @@
-﻿using Eventful.Contract.V1.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Eventful.Contract.V1.Responses
 {
     public class SearchEventsResponse
     {
-        public SearchEventsResponse(IEnumerable<Event> events)
+        public SearchEventsResponse(IEnumerable<EventResponse> events)
         {
             Events = events;
         }
 
-        public IEnumerable<Event> Events { get; set; }
+        public IEnumerable<EventResponse> Events { get; set; }
     }
 }

@@ -10,8 +10,8 @@ namespace Eventful.DataAccess.Repositories
             await Task.CompletedTask;
             return new Location
             {
-                Latitude = 0,
-                Longitude = 0
+                Latitude = (float)32.746682,
+                Longitude = (float)-117.162741
             };
         }
     }

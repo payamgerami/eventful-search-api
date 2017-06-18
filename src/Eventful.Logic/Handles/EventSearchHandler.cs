@@ -22,7 +22,7 @@ namespace Eventful.Logic.Handles
         public async Task<SearchQueryResult> DoWork(SearchQuery query)
         {
             var location = await _googleApiRepository.GetLocation(query.Address);
-            var events = await _eventfulApiRepository.GetEvents(location, query.Radius, query.DateStart, query.DateEnd, query.Category);
+            var events = await _eventfulApiRepository.GetEvents(location.Latitude, location.Longitude, query.Radius, query.DateStart, query.DateEnd, query.Category);
 
             return new SearchQueryResult(Mapper.Map<List<Event>>(events));
         }

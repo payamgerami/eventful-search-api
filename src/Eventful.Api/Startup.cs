@@ -48,6 +48,11 @@ namespace Eventful.Api
             .AddFluentValidation(fv =>
              {
                  fv.RegisterValidatorsFromAssemblyContaining<Contract.V1.Validators.SearchEventsRequestValidator>();
+             })
+            // Add Formatters
+            .AddJsonOptions(options =>
+             {
+                 options.SerializerSettings.DateFormatString = Configuration["Formatters:DateFormat"];
              });
         }
 

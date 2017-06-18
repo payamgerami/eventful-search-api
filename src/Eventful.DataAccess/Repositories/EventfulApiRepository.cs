@@ -18,6 +18,7 @@ namespace Eventful.DataAccess.Repositories
         private const string _appKey = "app_key";
         private const string _where = "where";
         private const string _within = "within";
+        private const string _date = "date";
 
         private static readonly HttpClient _httpClient = new HttpClient();
         private readonly EventfulOptions _eventfulOptions;
@@ -27,15 +28,16 @@ namespace Eventful.DataAccess.Repositories
             _eventfulOptions = eventfulOptions.Value;
         }
 
-        public async Task<IEnumerable<Event>> GetEvents(Location location, float radius, DateTime dateStart, DateTime dateEnd, string category)
+        public async Task<IEnumerable<EventfulEvent>> GetEvents(float latitude, float longitude, float radius, DateTime dateStart, DateTime dateEnd, string category)
         {
             UriBuilder uriBuilder = new UriBuilder(_eventfulOptions.BaseAddress);
             uriBuilder.Path = _eventfulOptions.EventsSearchPath;
 
             NameValueCollection parameters = new NameValueCollection();
             parameters.Add(_appKey, _eventfulOptions.AppKey);
-            parameters.Add(_where, "32.746682,-117.162741");
-            parameters.Add(_within, "25");
+            parameters.Add(_where, $"{latitude},{longitude}");
+            parameters.Add(_within, radius.ToString());
+            parameters.Add(_date, $"{dateStart}-{dateEnd}");
             uriBuilder.Query = parameters.ToQueryString();
 
             HttpResponseMessage response = await _httpClient.GetAsync(uriBuilder.Uri);
@@ -46,9 +48,9 @@ namespace Eventful.DataAccess.Repositories
                 var reader = new StringReader(xmlString);
                 var elements = XElement.Load(reader);
 
-                var events =
+                return
                     from s in elements.Descendants("event")
-                    select new Event
+                    select new EventfulEvent
                     {
                         Title = (string)s.Descendants("title").FirstOrDefault(),
                         Venue = (string)s.Descendants("venue_name").FirstOrDefault(),
@@ -56,8 +58,6 @@ namespace Eventful.DataAccess.Repositories
                         Performers = (string)s.Descendants("performers").FirstOrDefault(),
                         Image = (string)s.Descendants("image").FirstOrDefault()
                     };
-
-                return events;
             }
 
             return null;

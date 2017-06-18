@@ -1,12 +1,13 @@
 ﻿using System;
 
-namespace Eventful.Contract.V1.Models
+namespace Eventful.DataAccess.Entities
 {
-    public class Event
+    public class EventfulEvent
     {
         public string Title { get; set; }
         public string Venue { get; set; }
         public string Performers { get; set; }
         public DateTime Date { get; set; }
+        public string Image { get; set; }
     }
 }
