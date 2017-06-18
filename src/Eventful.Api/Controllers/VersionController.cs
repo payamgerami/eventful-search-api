@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace Eventful.Api.Controllers
 {
@@ -7,9 +8,9 @@ namespace Eventful.Api.Controllers
     {
         // GET api/version
         [HttpGet]
-        public string Get()
+        public Task<string> Get()
         {
-            return "V1";
+            return Task.FromResult("V1");
         }
     }
 }
