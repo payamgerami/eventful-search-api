@@ -14,11 +14,11 @@ namespace Eventful.Api.Controllers
     [ValidateModel]
     public class SearchEventsController : Controller
     {
-        public IHandlerFacade HandlerFacade { get; set; }
+        private IHandlerFacade _handlerFacade;
 
         public SearchEventsController(IHandlerFacade handlerFacade)
         {
-            HandlerFacade = handlerFacade;
+            _handlerFacade = handlerFacade;
         }
 
         [HttpPost]
@@ -26,7 +26,7 @@ namespace Eventful.Api.Controllers
         {
             SearchQuery query = Mapper.Map<SearchQuery>(request);
 
-            SearchQueryResult result = await HandlerFacade.Invoke<SearchQuery, SearchQueryResult>(query);
+            SearchQueryResult result = await _handlerFacade.Invoke<SearchQuery, SearchQueryResult>(query);
 
             return Mapper.Map<SearchEventsResponse>(result);
         }

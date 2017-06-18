@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Eventful.Contract.V1", "src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventful.Logic", "src\Eventful.Logic\Eventful.Logic.csproj", "{BA5C25BB-B727-48D5-9998-A622F2D18B2B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventful.Common", "src\Eventful.Common\Eventful.Common.csproj", "{6267395D-F49E-45EE-96E2-6506B8430B8C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{BA5C25BB-B727-48D5-9998-A622F2D18B2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA5C25BB-B727-48D5-9998-A622F2D18B2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA5C25BB-B727-48D5-9998-A622F2D18B2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6267395D-F49E-45EE-96E2-6506B8430B8C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6267395D-F49E-45EE-96E2-6506B8430B8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6267395D-F49E-45EE-96E2-6506B8430B8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6267395D-F49E-45EE-96E2-6506B8430B8C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

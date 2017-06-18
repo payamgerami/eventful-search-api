@@ -8,5 +8,6 @@ namespace Eventful.DataAccess.Entities
         public string Venue { get; set; }
         public string Performers { get; set; }
         public DateTime Date { get; set; }
+        public string Image { get; set; }
     }
 }

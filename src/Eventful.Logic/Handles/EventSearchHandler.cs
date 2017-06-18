@@ -10,19 +10,19 @@ namespace Eventful.Logic.Handles
 {
     public class EventSearchHandler : IHandler<SearchQuery, SearchQueryResult>
     {
-        private IGoogleApiRepository GoogleApiRepository { get; set; }
-        private IEventfulApiRepository EventfulApiRepository { get; set; }
+        private IGoogleApiRepository _googleApiRepository;
+        private IEventfulApiRepository _eventfulApiRepository;
 
         public EventSearchHandler(IGoogleApiRepository googleApiRepository, IEventfulApiRepository eventfulApiRepository)
         {
-            GoogleApiRepository = googleApiRepository;
-            EventfulApiRepository = eventfulApiRepository;
+            _googleApiRepository = googleApiRepository;
+            _eventfulApiRepository = eventfulApiRepository;
         }
 
         public async Task<SearchQueryResult> DoWork(SearchQuery query)
         {
-            var location = await GoogleApiRepository.GetLocation(query.Address);
-            var events = await EventfulApiRepository.GetEvents(location, query.Radius, query.DateStart, query.DateEnd, query.Category);
+            var location = await _googleApiRepository.GetLocation(query.Address);
+            var events = await _eventfulApiRepository.GetEvents(location, query.Radius, query.DateStart, query.DateEnd, query.Category);
 
             return new SearchQueryResult(Mapper.Map<List<Event>>(events));
         }

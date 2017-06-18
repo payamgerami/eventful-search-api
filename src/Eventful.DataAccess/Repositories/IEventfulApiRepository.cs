@@ -7,6 +7,6 @@ namespace Eventful.DataAccess.Repositories
 {
     public interface IEventfulApiRepository
     {
-        Task<List<Event>> GetEvents(Location location, float radius, DateTime dateStart, DateTime dateEnd, string category);
+        Task<IEnumerable<Event>> GetEvents(Location location, float radius, DateTime dateStart, DateTime dateEnd, string category);
     }
 }

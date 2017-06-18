@@ -8,6 +8,7 @@ using Eventful.DataAccess.Extensions;
 using Eventful.Logic.Extensions;
 using System.Net;
 using FluentValidation.AspNetCore;
+using Eventful.Common.Configurations;
 
 namespace Eventful.Api
 {
@@ -28,11 +29,14 @@ namespace Eventful.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Add Configurations
+            services.Configure<EventfulOptions>(Configuration.GetSection("Eventful"));
+
             // Add Layers
             services.AddEventfulLogicLayer();
             services.AddEventfulDataAccessLayer();
 
-            // Setup mappings
+            // Setup Mappings
             Mappings.Mapping.ConfigureMap();
 
             // Add framework services.
@@ -40,7 +44,7 @@ namespace Eventful.Api
             {
                 setupAction.ReturnHttpNotAcceptable = true;
             })
-            //Add Validation
+            //Add Validations
             .AddFluentValidation(fv =>
              {
                  fv.RegisterValidatorsFromAssemblyContaining<Contract.V1.Validators.SearchEventsRequestValidator>();
