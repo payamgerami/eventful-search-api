@@ -5,6 +5,6 @@ namespace Eventful.DataAccess.Repositories
 {
     public interface IGoogleApiRepository
     {
-        Task<Location> GetLocation(string address);
+        Task<GoogleLocation> GetLocation(string address);
     }
 }

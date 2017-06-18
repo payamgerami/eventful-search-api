@@ -9,6 +9,8 @@ using Eventful.Logic.Extensions;
 using System.Net;
 using FluentValidation.AspNetCore;
 using Eventful.Common.Configurations;
+using Microsoft.AspNetCore.Diagnostics;
+using Eventful.Common.Exceptions;
 
 namespace Eventful.Api
 {
@@ -30,7 +32,8 @@ namespace Eventful.Api
         public void ConfigureServices(IServiceCollection services)
         {
             // Add Configurations
-            services.Configure<EventfulOptions>(Configuration.GetSection("Eventful"));
+            services.Configure<EventfulApiOptions>(Configuration.GetSection("Eventful"));
+            services.Configure<GoogleApiOptions>(Configuration.GetSection("Google"));
 
             // Add Layers
             services.AddEventfulLogicLayer();
@@ -38,6 +41,13 @@ namespace Eventful.Api
 
             // Setup Mappings
             Mappings.Mapping.ConfigureMap();
+
+            // Add Cors Policy
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpa",
+                    builder => builder.WithOrigins(Configuration["Cors:Spa:Origins"]));
+            });
 
             // Add framework services.
             services.AddMvc(setupAction =>
@@ -62,12 +72,25 @@ namespace Eventful.Api
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+            app.UseCors("AllowSpa");
+
             app.UseExceptionHandler(
                 appBuilder => appBuilder.Run(
                     async context =>
                     {
-                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-                        await context.Response.WriteAsync("An error has occurred on the server. Please try again later");
+                        int statusCode = (int)HttpStatusCode.InternalServerError;
+                        string message = "An error has occurred on the server. Please try again later";
+
+                        var exceptionHandlerFeature = context.Features.Get<IExceptionHandlerFeature>();
+
+                        if (exceptionHandlerFeature.Error is InternalApiBadRequestException ex)
+                        {
+                            statusCode = (int)HttpStatusCode.BadRequest;
+                            message = ex.Message;
+                        }
+
+                        context.Response.StatusCode = statusCode;
+                        await context.Response.WriteAsync(message);
                     })
                 );
 

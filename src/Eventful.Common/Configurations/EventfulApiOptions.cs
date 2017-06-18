@@ -1,6 +1,6 @@
 ﻿namespace Eventful.Common.Configurations
 {
-    public class EventfulOptions
+    public class EventfulApiOptions
     {
         public string AppKey { get; set; }
         public string BaseAddress { get; set; }

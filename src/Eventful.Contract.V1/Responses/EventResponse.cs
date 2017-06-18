@@ -8,5 +8,6 @@ namespace Eventful.Contract.V1.Responses
         public string Venue { get; set; }
         public string Performers { get; set; }
         public DateTime Date { get; set; }
+        public string ImageUri { get; set; }
     }
 }
