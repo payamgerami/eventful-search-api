@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
+  <PropertyGroup>    
     <TargetFramework>netcoreapp1.1</TargetFramework>
-    <PackageTargetFallback>portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,8 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Eventful.Api\Eventful.Api.csproj" />
-    <ProjectReference Include="..\Eventful.Contract.V1\Eventful.Contract.V1.csproj" />
+    <ProjectReference Include="..\Eventful.DataAccess\Eventful.DataAccess.csproj" />
     <ProjectReference Include="..\Eventful.Logic\Eventful.Logic.csproj" />
   </ItemGroup>
 

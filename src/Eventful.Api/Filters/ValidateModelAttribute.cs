@@ -5,9 +5,6 @@ namespace Eventful.Api.Filters
 {
     public class ValidateModelAttribute : ActionFilterAttribute
     {
-        private const string InvalidModelCode = "InvalidModel";
-        private const string InvalidOrMissingParameter = "InvalidOrMissingParameter";
-
         public override void OnActionExecuting(ActionExecutingContext context)
         {
             if (!context.ModelState.IsValid)

@@ -15,20 +15,22 @@ namespace Eventful.Api.Controllers
     public class SearchEventsController : Controller
     {
         private IHandlerFacade _handlerFacade;
+        private IMapper _mapper;
 
-        public SearchEventsController(IHandlerFacade handlerFacade)
+        public SearchEventsController(IMapper mapper, IHandlerFacade handlerFacade)
         {
+            _mapper = mapper;
             _handlerFacade = handlerFacade;
         }
 
         [HttpPost]
         public async Task<SearchEventsResponse> Search([FromBody] SearchEventsRequest request)
         {
-            SearchQuery query = Mapper.Map<SearchQuery>(request);
+            SearchQuery query = _mapper.Map<SearchQuery>(request);
 
             SearchQueryResult result = await _handlerFacade.Invoke<SearchQuery, SearchQueryResult>(query);
 
-            return Mapper.Map<SearchEventsResponse>(result);
+            return _mapper.Map<SearchEventsResponse>(result);
         }
     }
 }

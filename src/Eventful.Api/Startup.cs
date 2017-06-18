@@ -11,6 +11,8 @@ using FluentValidation.AspNetCore;
 using Eventful.Common.Configurations;
 using Microsoft.AspNetCore.Diagnostics;
 using Eventful.Common.Exceptions;
+using AutoMapper;
+using Eventful.Api.Mappings;
 
 namespace Eventful.Api
 {
@@ -40,13 +42,17 @@ namespace Eventful.Api
             services.AddEventfulDataAccessLayer();
 
             // Setup Mappings
-            Mappings.Mapping.ConfigureMap();
+            services.AddAutoMapper(typeof(MappingProfile));
 
             // Add Cors Policy
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpa",
-                    builder => builder.WithOrigins(Configuration["Cors:Spa:Origins"]));
+                    builder => builder
+                    .AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
             });
 
             // Add framework services.

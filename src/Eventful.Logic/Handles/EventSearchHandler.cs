@@ -10,11 +10,13 @@ namespace Eventful.Logic.Handles
 {
     public class EventSearchHandler : IHandler<SearchQuery, SearchQueryResult>
     {
+        private IMapper _mapper;
         private IGoogleApiRepository _googleApiRepository;
         private IEventfulApiRepository _eventfulApiRepository;
 
-        public EventSearchHandler(IGoogleApiRepository googleApiRepository, IEventfulApiRepository eventfulApiRepository)
+        public EventSearchHandler(IMapper mapper, IGoogleApiRepository googleApiRepository, IEventfulApiRepository eventfulApiRepository)
         {
+            _mapper = mapper;
             _googleApiRepository = googleApiRepository;
             _eventfulApiRepository = eventfulApiRepository;
         }
@@ -31,7 +33,7 @@ namespace Eventful.Logic.Handles
                 query.DateEnd,
                 query.Category);
 
-            return new SearchQueryResult(Mapper.Map<List<Event>>(events));
+            return new SearchQueryResult(_mapper.Map<List<Event>>(events));
         }
     }
 }

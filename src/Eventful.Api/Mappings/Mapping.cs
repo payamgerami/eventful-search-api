@@ -1,17 +1,15 @@
-﻿namespace Eventful.Api.Mappings
+﻿using AutoMapper;
+
+namespace Eventful.Api.Mappings
 {
-    public static class Mapping
+    public class MappingProfile : Profile
     {
-        public static void ConfigureMap()
+        public MappingProfile()
         {
-            AutoMapper.Mapper.Initialize(
-                cfg =>
-                {
-                    cfg.CreateMap<Contract.V1.Requests.SearchEventsRequest, Logic.Queries.SearchQuery>();
-                    cfg.CreateMap<Logic.Results.SearchQueryResult, Contract.V1.Responses.SearchEventsResponse>();
-                    cfg.CreateMap<Logic.Models.Event, Contract.V1.Responses.EventResponse>();
-                    cfg.CreateMap<DataAccess.Entities.EventfulEvent, Logic.Models.Event>();
-                });
+            CreateMap<Contract.V1.Requests.SearchEventsRequest, Logic.Queries.SearchQuery>();
+            CreateMap<Logic.Results.SearchQueryResult, Contract.V1.Responses.SearchEventsResponse>();
+            CreateMap<Logic.Models.Event, Contract.V1.Responses.EventResponse>();
+            CreateMap<DataAccess.Entities.EventfulEvent, Logic.Models.Event>();
         }
     }
 }

@@ -56,6 +56,7 @@ namespace Eventful.DataAccess.Repositories
                     from s in search.Descendants("event")
                     select new EventfulEvent
                     {
+                        Id = (string)s.Attribute("id"),
                         Title = (string)s.Descendants("title").FirstOrDefault(),
                         Venue = (string)s.Descendants("venue_name").FirstOrDefault(),
                         Date = (DateTime)s.Descendants("start_time").FirstOrDefault(),
